@@ -7,6 +7,7 @@
 #include <utility>
 #include <fstream>
 #include <vector>
+#include <string>
 #include "Polynomial.h"
 
 using namespace std;
@@ -46,7 +47,6 @@ int main()
     cout << "Remainder: " << remainder << endl;
     cout << "\n===============================================================\n";
 
-
     /* do
     {
       cout << '\n'
@@ -64,11 +64,11 @@ int main()
     fstream file(fileName, ios::in);
     string line, degree;
     vector<double> coeffs;
-    if(file.is_open())
+    if (file.is_open())
     {
-      getline(file, line); // POLYNOMIAL
+      getline(file, line);   // POLYNOMIAL
       getline(file, degree); // degree ex. 5
-      for(int i = 0; i < stoi(degree); i++)
+      for (int i = 0; i < stoi(degree); i++)
       {
         getline(file, line);
         coeffs.push_back(stod(line));
@@ -76,7 +76,7 @@ int main()
       file.close();
     }
 
-    if(poly == 'p')
+    if (poly == 'p')
     {
       p.setCoeffs(coeffs);
     }

@@ -7,6 +7,7 @@
 #include <vector>
 #include <cmath>
 #include <utility>
+#include <string>
 #include "Polynomial.h"
 
 using namespace std;
@@ -21,7 +22,7 @@ Polynomial::Polynomial(const vector<double> &coeffs)
   coefficients = coeffs;
 }
 
-Polynomial Polynomial::setCoeffs(const vector<double>& coeffs)
+Polynomial Polynomial::setCoeffs(const vector<double> &coeffs)
 {
   coefficients = coeffs;
   return *this;
@@ -91,7 +92,7 @@ Polynomial Polynomial::operator*(const Polynomial &other) const
   {
     for (int j = 0; j <= other.degree(); ++j)
     {
-       // Add product to the correct degree
+      // Add product to the correct degree
       resultCoeffs[i + j] += coefficients[i] * other.coefficients[j];
     }
   }
@@ -103,11 +104,11 @@ pair<Polynomial, Polynomial> Polynomial::operator/(const Polynomial &divisor) co
 {
   vector<double> quotientCoeffs(degree() - divisor.degree() + 1, 0);
   // Start with dividend as remainder
-  vector<double> remainderCoeffs = coefficients; 
+  vector<double> remainderCoeffs = coefficients;
 
   int divisorDegree = divisor.degree();
   // Leading coefficient of the divisor
-  int divisorLeadingCoeff = divisor.coefficients.back(); 
+  int divisorLeadingCoeff = divisor.coefficients.back();
 
   // polynomial long division
   while (remainderCoeffs.size() > divisor.coefficients.size() - 1)
@@ -140,24 +141,23 @@ pair<Polynomial, Polynomial> Polynomial::operator/(const Polynomial &divisor) co
 }
 
 // Operator overload for insertion
-ostream& operator<<(ostream &output, const Polynomial &p)
+ostream &operator<<(ostream &output, const Polynomial &p)
 {
   string poly;
-  for(int i = 0; i <= p.degree(); i++)
+  for (int i = 0; i <= p.degree(); i++)
   {
     if (p.degree() == 0)
     {
       poly += to_string(p.coefficients[i]);
     }
-    else 
-      if (p.degree() == 1)
-      {
-        poly += to_string(p.coefficients[i]) + 'x' + ' ' + '+' + ' ';
-      }
-      else 
-      {
-        poly += to_string(p.coefficients[i]) + 'x' + '^' + to_string(p.degree() - i) + ' ' + '+' + ' ';
-      }
+    else if (p.degree() == 1)
+    {
+      poly += to_string(p.coefficients[i]) + 'x' + ' ' + '+' + ' ';
+    }
+    else
+    {
+      poly += to_string(p.coefficients[i]) + 'x' + '^' + to_string(p.degree() - i) + ' ' + '+' + ' ';
+    }
   }
   output << poly;
   return output;
